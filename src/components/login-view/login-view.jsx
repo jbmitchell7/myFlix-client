@@ -6,13 +6,15 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
         props.onLoggedIn(username);
+        props.onRegister(false);
+        console.log(`${username} has logged in.`);
     };
 
     const handleRegister = (e) => {
         e.preventDefault();
-        props.register();
+        props.onRegister(true);
+        console.log(`New user is going to register.`);
     }
 
     return (

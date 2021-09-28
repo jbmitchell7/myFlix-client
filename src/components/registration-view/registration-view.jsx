@@ -7,27 +7,28 @@ export function RegistrationView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
         props.onLoggedIn(username);
+        props.onRegister(false);
+        console.log(`{username} has logged in.`);
     };
 
     return (
         <form>
-            <label>
+            <h3>
                 Create an Account
-            </label>
+            </h3>
             <label>
                 Email Address:
                 <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-            </label>
+            </label><br />
             <label>
                 Username:
                 <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            </label>
+            </label><br />
             <label>
                 Password:
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </label>
+            </label><br />
             <button type="submit" onClick={handleSubmit}>Submit</button>
         </form>
     );
