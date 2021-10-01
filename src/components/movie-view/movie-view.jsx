@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Card} from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import "./movie-view.scss";
 
 export class MovieView extends React.Component {
     render() {
@@ -7,7 +8,7 @@ export class MovieView extends React.Component {
         return (
             <Card className="movie-view">
                 <Card.Body>
-                    {/* <Card.Img variant="top" className="movie.poster" src={movie.ImagePath} /> */}
+                    <Card.Img variant="responsive" src={movie.ImagePath} />
                     <Card.Title className="movie-title">{movie.Title}</Card.Title>
                     <Card.Text className="movie-description">Description: {movie.Description}</Card.Text>
                     <Card.Text className="movie-director">Director: {movie.Director.Name}</Card.Text>
