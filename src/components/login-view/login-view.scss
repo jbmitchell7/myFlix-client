@@ -1,0 +1,23 @@
+.login-header {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.login-text {
+    color: white;
+}
+
+#register-btn {
+    background-color: black;
+    border: none;
+    margin-bottom: 30px;
+}
+
+#login-btn {
+    background-color: black;
+    border: none;
+}
+
+#register-btn:hover, #login-btn:hover {
+    opacity: 80%;
+}

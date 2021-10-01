@@ -1,0 +1,15 @@
+.movie-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-title {
+    align-self: center;
+}
+
+.movie-poster {
+    width: 100%;
+    max-width: 400px;
+    align-self: center;
+    margin-bottom: 20px;
+}

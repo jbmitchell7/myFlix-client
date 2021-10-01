@@ -1,11 +1,19 @@
 .movie-card {
     width: 100%;
     margin-top: 15px;
-    padding: 10px;
-    justify-content: center;
 }
 
-.view-movie-btn {
-    width: 100%;
-    color: black;
+.movie-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card-title {
+    align-self: center;
+    margin-top: 15px;
+}
+
+#view-movie-btn {
+    background-color: black;
+    border-color: darkgoldenrod;
 }
