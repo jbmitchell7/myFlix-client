@@ -4,7 +4,7 @@ import { LoginView } from "../login-view/login-view";
 import { RegistrationView } from "../registration-view/registration-view"
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import "./main-view.scss";
 
 export class MainView extends React.Component {
@@ -66,6 +66,15 @@ export class MainView extends React.Component {
         });
     }
 
+    onLoggedOut() {
+        console.log(`${localStorage.getItem('user')} is logging out`);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
+    }
+
     render() {
         const { movies, selectedMovie, user, register } = this.state;
 
@@ -88,23 +97,26 @@ export class MainView extends React.Component {
         if (movies.length === 0) return <div className="main-view" />;
 
         return (
-            <Row className="main-view justify-content-md-center">
-                {selectedMovie
-                    ? (
-                        <Col md={8}>
-                            <MovieView movie={selectedMovie}
-                                onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-                        </Col>
-                    )
-                    : movies.map(movie => (
-                        <Col md={4} key={movie._id}>
-                            <MovieCard movieData={movie}
-                                onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
-                        </Col>
-                    ))
+            <div>
+                <Button variant="primary" id="logout-btn" onClick={() => { this.onLoggedOut() }}>Logout</Button><br />
+                <Row className="main-view justify-content-md-center">
+                    {selectedMovie
+                        ? (
+                            <Col md={8}>
+                                <MovieView movie={selectedMovie}
+                                    onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                            </Col>
+                        )
+                        : movies.map(movie => (
+                            <Col md={4} key={movie._id}>
+                                <MovieCard movieData={movie}
+                                    onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
+                            </Col>
+                        ))
 
-                }
-            </Row>
+                    }
+                </Row>
+            </div>
         );
     }
 }
