@@ -11,6 +11,7 @@ class MyFlixApplication extends React.Component {
     render() {
         return (
             <Container className="app-view">
+                <h1 className="page-header">JakesMovieDB</h1>
                 <MainView />
             </Container>
         );
