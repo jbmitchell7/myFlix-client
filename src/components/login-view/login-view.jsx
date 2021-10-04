@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -24,18 +25,12 @@ export function LoginView(props) {
 
     };
 
-    const handleRegister = (e) => {
-        e.preventDefault();
-        props.onRegister(true);
-        console.log(`New user is going to register.`);
-    }
-
     return (
         <div>
             <h5 className="login-header">No Login?</h5>
-
-            <Button variant="primary" id="register-btn" onClick={handleRegister}>Register Here!</Button>
-
+            <Link to={"/register"}>
+                <Button variant="primary" id="register-btn">Register Here!</Button>
+            </Link>
             <Form>
                 <Form.Group controlId="formUsername">
                     <Form.Label className="login-text">Username:</Form.Label>
