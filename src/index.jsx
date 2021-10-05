@@ -11,7 +11,7 @@ class MyFlixApplication extends React.Component {
     render() {
         return (
             <Container className="app-view">
-                <MainView />
+                <MainView className="main-view" />
             </Container>
         );
     }

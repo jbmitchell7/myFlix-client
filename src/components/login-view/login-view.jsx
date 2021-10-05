@@ -27,11 +27,7 @@ export function LoginView(props) {
 
     return (
         <div>
-            <h5 className="login-header">No Login?</h5>
-            <Link to={"/register"}>
-                <Button variant="primary" id="register-btn">Register Here!</Button>
-            </Link>
-            <Form>
+            <Form className="login-form">
                 <Form.Group controlId="formUsername">
                     <Form.Label className="login-text">Username:</Form.Label>
                     <Form.Control required type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />

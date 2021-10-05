@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './registration-view.scss';
 
-export function RegistrationView(props) {
+export function RegistrationView() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -30,7 +30,7 @@ export function RegistrationView(props) {
         <div>
             <h3 className="registration-header">Create an Account</h3>
 
-            <Form>
+            <Form className="registration-form">
                 <Form.Group controlId="formEmail">
                     <Form.Label className="registration-text">Email Address:</Form.Label>
                     <Form.Control type="text" onChange={e => setEmail(e.target.value)} />

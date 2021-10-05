@@ -19,7 +19,8 @@ export class MainView extends React.Component {
         super();
         this.state = {
             movies: [],
-            user: null
+            user: null,
+            userData: null
         };
     }
 
@@ -30,6 +31,7 @@ export class MainView extends React.Component {
                 user: localStorage.getItem('user')
             });
             this.getMovies(accessToken);
+            this.getUser(accessToken);
         }
     }
 
@@ -47,6 +49,20 @@ export class MainView extends React.Component {
             })
     }
 
+    getUser(token) {
+        axios.get('https://jakesmoviedb.herokuapp.com/users/:Username', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                this.setState({
+                    userData: response.data
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
     onLoggedIn(authData) {
         console.log(authData);
         this.setState({
@@ -56,6 +72,7 @@ export class MainView extends React.Component {
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
+        this.getUser(authData.token);
     }
 
     onLoggedOut() {
@@ -68,35 +85,33 @@ export class MainView extends React.Component {
     }
 
     render() {
-        const { movies, user } = this.state;
+        const { movies, user, userData } = this.state;
 
         return (
             <Router>
-                <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+                <Navbar className="navigation" collapseOnSelect expand="md" bg="dark" variant="dark">
                     <Navbar.Brand>JakesMovieDB</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
+                            <Link to={"/register"} className="nav-link">Register</Link>
                             <Link to={`/users/${user}`} className="nav-link">View Profile</Link>
                             <Nav.Link onClick={() => { this.onLoggedOut() }}>Logout</Nav.Link><br />
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <nav className="navbar">
-
-                </nav>
-                <Row className="main-view justify-content-md-center">
-
+                <Row className="router-view justify-content-md-center">
                     <Route exact path="/" render={() => {
                         if (!user)
                             return (
                                 <Col>
+                                    <h3 className="login-header">Login</h3>
                                     <LoginView
                                         onLoggedIn={(user) => this.onLoggedIn(user)}
                                     />
                                 </Col>
                             )
-                        if (movies.length === 0) return <div className="main-view" />
+                        if (movies.length === 0) return <div />
                         return movies.map(m => (
                             <Col md={4} key={m._id}>
                                 <MovieCard movieData={m} />
@@ -135,9 +150,9 @@ export class MainView extends React.Component {
                         </Col>
                     }} />
 
-                    <Route path="/users/:username" render={({ match, history }) => {
+                    <Route path="/users/:username" render={({ history }) => {
                         return <Col md={8}>
-                            <ProfileView profileData={user.find(user => user === match.params.username)} onBackClick={() => history.goBack()} />
+                            <ProfileView profileData={userData} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
                 </Row>
