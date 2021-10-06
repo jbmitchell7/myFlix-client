@@ -10,6 +10,7 @@ export function RegistrationView() {
     const [birthday, setBirthday] = useState('');
 
     const handleRegister = (e) => {
+        e.preventDefault();
         axios.post('https://jakesmoviedb.herokuapp.com/users', {
             Username: username,
             Password: password,

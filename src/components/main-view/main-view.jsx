@@ -11,16 +11,13 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Col, Row, Navbar, Nav } from "react-bootstrap";
 import "./main-view.scss";
 
-
-
 export class MainView extends React.Component {
 
     constructor() {
         super();
         this.state = {
             movies: [],
-            user: null,
-            userData: null
+            user: null
         };
     }
 
@@ -31,7 +28,6 @@ export class MainView extends React.Component {
                 user: localStorage.getItem('user')
             });
             this.getMovies(accessToken);
-            this.getUser(accessToken);
         }
     }
 
@@ -49,43 +45,29 @@ export class MainView extends React.Component {
             })
     }
 
-    getUser(token) {
-        axios.get('https://jakesmoviedb.herokuapp.com/users/:Username', {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(response => {
-                this.setState({
-                    userData: response.data
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-
     onLoggedIn(authData) {
         console.log(authData);
         this.setState({
             user: authData.user.Username
         });
-
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
+        localStorage.setItem('userData', JSON.stringify(authData.user));
         this.getMovies(authData.token);
-        this.getUser(authData.token);
     }
 
     onLoggedOut() {
         console.log(`${localStorage.getItem('user')} is logging out`);
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('userData');
         this.setState({
             user: null
         });
     }
 
     render() {
-        const { movies, user, userData } = this.state;
+        const { movies, user } = this.state;
 
         return (
             <Router>
@@ -94,9 +76,10 @@ export class MainView extends React.Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
+                            <Link to={"/"} className="nav-link">Movies</Link>
                             <Link to={"/register"} className="nav-link">Register</Link>
                             <Link to={`/users/${user}`} className="nav-link">View Profile</Link>
-                            <Nav.Link onClick={() => { this.onLoggedOut() }}>Logout</Nav.Link><br />
+                            <Link to={"/"} onClick={() => { this.onLoggedOut() }} className="nav-link">Logout</Link><br />
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -151,8 +134,9 @@ export class MainView extends React.Component {
                     }} />
 
                     <Route path="/users/:username" render={({ history }) => {
+                        if (!user) return <Redirect to="/" />
                         return <Col md={8}>
-                            <ProfileView profileData={userData} onBackClick={() => history.goBack()} />
+                            <ProfileView profileData={JSON.parse(localStorage.getItem('userData'))} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
                 </Row>
