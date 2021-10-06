@@ -2,6 +2,7 @@ import React from "react";
 import React, { useState } from 'react';
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./profile-view.scss";
 
 export function ProfileView(props) {
@@ -45,26 +46,38 @@ export function ProfileView(props) {
         <Form className="user-form">
             <Form.Group controlId="formEmail">
                 <Form.Label className="user-text">Email Address:</Form.Label>
-                <Form.Control type="text" defaultValue={props.profileData.Email} onChange={e => setEmail(e.target.value)} />
+                <Form.Control type="text" placeholder="name@example.com" defaultValue={props.profileData.Email} onChange={e => setEmail(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="formUsername">
                 <Form.Label className="user-text">Username:</Form.Label>
-                <Form.Control type="text" defaultValue={props.profileData.Username} onChange={e => setUsername(e.target.value)} />
+                <Form.Control type="text" placeholder="Must be at least 5 alphanumeric characters" defaultValue={props.profileData.Username} onChange={e => setUsername(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="formPassword">
                 <Form.Label className="user-text">Password:</Form.Label>
-                <Form.Control type="password" defaultValue={props.profileData.Password} onChange={e => setPassword(e.target.value)} />
+                <Form.Control type="password" placeholder="Must be at least 8 characters" defaultValue={props.profileData.Password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label className="user-birthday">Birthday: {dateConvert(props.profileData.Birthday)}</Form.Label>
             </Form.Group>
             <Form.Group>
                 <Form.Label className="user-favorites">Favorite Movies: {props.profileData.FavoriteMovies}</Form.Label>
+                {/* {props.profileData.FavoriteMovies.map((movies) => {
+                    return (
+                        <div key={movies._id}>
+                            <img src={movies.ImagePath} />
+                            <Link to={`/movies/${movies._id}`}>
+                                <h4>{movies.Title}</h4>
+                            </Link>
+                        </div>
+                    )
+                }
+
+                )} */}
             </Form.Group>
             <Form.Group className="profile-btns">
                 <Button variant="primary" id="user-submit" type="submit" onClick={handleUpdate}>Update</Button>
                 <Button variant="secondary" onClick={() => { props.onBackClick(null); }}>Back</Button>
             </Form.Group>
-        </Form>
+        </Form >
     );
 }

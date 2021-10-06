@@ -34,17 +34,17 @@ export function RegistrationView() {
             <Form className="registration-form">
                 <Form.Group controlId="formEmail">
                     <Form.Label className="registration-text">Email Address:</Form.Label>
-                    <Form.Control type="text" onChange={e => setEmail(e.target.value)} />
+                    <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formUsername">
                     <Form.Label className="registration-text">Username:</Form.Label>
-                    <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+                    <Form.Control type="text" placeholder="Must be at least 5 alphanumeric characters" onChange={e => setUsername(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formPassword">
                     <Form.Label className="registration-text">Password:</Form.Label>
-                    <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+                    <Form.Control type="password" placeholder="Must be at least 8 characters" onChange={e => setPassword(e.target.value)} />
                 </Form.Group >
                 <Form.Group controlId="formBirthday">
                     <Form.Label className="registration-text">Birthday:</Form.Label>
