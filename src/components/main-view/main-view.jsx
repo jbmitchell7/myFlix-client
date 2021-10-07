@@ -73,7 +73,7 @@ export class MainView extends React.Component {
         return (
             <Router>
                 <NavbarView onLoggedOut={() => this.onLoggedOut()} user={user}/>
-                
+
                 <Row className="router-view justify-content-md-center">
                     <Route exact path="/" render={() => {
                         if (!user)
@@ -127,7 +127,7 @@ export class MainView extends React.Component {
                     <Route path="/users/:username" render={({ history }) => {
                         if (!user) return <Redirect to="/" />
                         return <Col md={8}>
-                            <ProfileView profileData={JSON.parse(localStorage.getItem('userData'))} onBackClick={() => history.goBack()} />
+                            <ProfileView movieData={movies} profileData={JSON.parse(localStorage.getItem('userData'))} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
                 </Row>

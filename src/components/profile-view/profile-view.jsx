@@ -2,6 +2,7 @@ import React from "react";
 import React, { useState } from 'react';
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { FavoriteMovies } from "./favoritemovies-view";
 import "./profile-view.scss";
 
 export function ProfileView(props) {
@@ -9,6 +10,10 @@ export function ProfileView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+
+    // const favoriteMovieList = props.movieData.filter((movies) => {
+    //     props.profileData.FavoriteMovies.map()
+    // })
 
     const dateConvert = (dateInput) => {
         let year = dateInput.substr(0, 4);
@@ -60,18 +65,7 @@ export function ProfileView(props) {
             </Form.Group>
             <Form.Group>
                 <Form.Label className="user-favorites">Favorite Movies: {props.profileData.FavoriteMovies}</Form.Label>
-                {/* {props.profileData.FavoriteMovies.map((movies) => {
-                    return (
-                        <div key={movies._id}>
-                            <img src={movies.ImagePath} />
-                            <Link to={`/movies/${movies._id}`}>
-                                <h4>{movies.Title}</h4>
-                            </Link>
-                        </div>
-                    )
-                }
-
-                )} */}
+                {/* <FavoriteMovies favoriteMovieList={favoriteMovieList} /> */}
             </Form.Group>
             <Form.Group className="profile-btns">
                 <Button variant="primary" id="user-submit" type="submit" onClick={handleUpdate}>Update</Button>
