@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { FavoriteMovies } from "./favoritemovies-view";
 import "./profile-view.scss";
 
 export function ProfileView(props) {
 
-    const [username, setUsername] = useState(`${props.profileData.Username}`);
-    const [password, setPassword] = useState(`${props.profileData.Password}`);
-    const [email, setEmail] = useState(`${props.profileData.Email}`);
-    const [birthday, setBirthday] = useState(`${props.profileData.Birthday}`);
-    const [alert, setAlert] = useState(false);
+    const [username, setUsername] = useState(props.profileData.Username);
+    const [password, setPassword] = useState(props.profileData.Password);
+    const [email, setEmail] = useState(props.profileData.Email);
+    const [birthday, setBirthday] = useState(props.profileData.Birthday);
 
-    const favoriteMovieList = props.movieData.filter((movie) => {
-        props.profileData.FavoriteMovies.includes(movie._id);
+    const arr1 = props.movieData,
+        arr2 = props.profileData.FavoriteMovies;
+
+    console.log(arr1);
+    console.log(arr2);
+
+    const favoriteMovieList = arr1.filter((movie) => {
+        // console.log(props.profileData.FavoriteMovies.includes(movie._id)),
+        arr2.includes(movie._id);
     })
+    console.log(favoriteMovieList);
 
     const dateConvert = (dateInput) => {
         let year = dateInput.substr(0, 4);
@@ -26,7 +33,7 @@ export function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        axios.put('https://jakesmoviedb.herokuapp.com/users/:Username',
+        axios.put(`https://jakesmoviedb.herokuapp.com/users/${username}`,
             {
                 Username: username,
                 Password: password,
@@ -40,31 +47,18 @@ export function ProfileView(props) {
             .then(response => {
                 const data = response.data;
                 console.log(data);
-                location.reload();
+                console.log(username);
+                console.log(email);
+                alert("User successfully updated");
             })
             .catch(e => {
-                setAlert(true);
-                console.log(alert);
-                console.log(username);
-                console.log(password);
-                console.log(email);
-                console.log(birthday);
+                alert("User failed to update");
                 console.log('error updating the user');
-                location.reload();
             });
     };
 
     return (
         <div>
-            <div> {() => {
-                if (alert)
-                    return (
-                        <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-                            <Alert.Heading>Login Error</Alert.Heading>
-                        </Alert>
-                    )
-            }}
-            </div>
             <h2>Profile Info</h2>
             <Form className="user-form">
                 <Form.Group controlId="formEmail">
