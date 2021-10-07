@@ -15,7 +15,7 @@ export function ProfileView(props) {
         // console.log(props.profileData.FavoriteMovies.includes(movie._id)),
         props.profileData.FavoriteMovies.includes(movie._id);
     })
-    console.log(favoriteMovieList);
+    //console.log(favoriteMovieList);
 
     const dateConvert = (dateInput) => {
         let year = dateInput.substr(0, 4);
@@ -27,17 +27,10 @@ export function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        axios.put(`https://jakesmoviedb.herokuapp.com/users/${username}`,
-            {
-                Username: username,
-                Password: password,
-                Email: email,
-                Birthday: birthday
-            },
-            {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            }
-        )
+        const oldusername = username;
+        const body = { Username: username, Password: password, Email: email, Birthday: birthday };
+        const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+        axios.put(`https://jakesmoviedb.herokuapp.com/users/${oldusername}`, body, headers)
             .then(response => {
                 const data = response.data;
                 console.log(data);
