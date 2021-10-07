@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import { NavbarView } from "../navbar-view/navbar-view";
 import { LoginView } from "../login-view/login-view";
 import { RegistrationView } from "../registration-view/registration-view"
 import { MovieCard } from "../movie-card/movie-card";
@@ -71,18 +72,8 @@ export class MainView extends React.Component {
 
         return (
             <Router>
-                <Navbar className="navigation" collapseOnSelect expand="md" bg="dark" variant="dark">
-                    <Navbar.Brand>JakesMovieDB</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="ml-auto">
-                            <Link to={"/"} className="nav-link">Movies</Link>
-                            <Link to={"/register"} className="nav-link">Register</Link>
-                            <Link to={`/users/${user}`} className="nav-link">View Profile</Link>
-                            <Link to={"/"} onClick={() => { this.onLoggedOut() }} className="nav-link">Logout</Link><br />
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
+                <NavbarView onLoggedOut={() => this.onLoggedOut()} user={user}/>
+                
                 <Row className="router-view justify-content-md-center">
                     <Route exact path="/" render={() => {
                         if (!user)

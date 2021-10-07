@@ -2,7 +2,6 @@ import React from "react";
 import React, { useState } from 'react';
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "./profile-view.scss";
 
 export function ProfileView(props) {
