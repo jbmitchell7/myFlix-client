@@ -11,15 +11,9 @@ export function ProfileView(props) {
     const [email, setEmail] = useState(props.profileData.Email);
     const [birthday, setBirthday] = useState(props.profileData.Birthday);
 
-    const arr1 = props.movieData,
-        arr2 = props.profileData.FavoriteMovies;
-
-    console.log(arr1);
-    console.log(arr2);
-
-    const favoriteMovieList = arr1.filter((movie) => {
+    const favoriteMovieList = props.movieData.filter((movie) => {
         // console.log(props.profileData.FavoriteMovies.includes(movie._id)),
-        arr2.includes(movie._id);
+        props.profileData.FavoriteMovies.includes(movie._id);
     })
     console.log(favoriteMovieList);
 
