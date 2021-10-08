@@ -11,6 +11,9 @@ export function ProfileView(props) {
     const [email, setEmail] = useState(props.profileData.Email);
     const [birthday, setBirthday] = useState(props.profileData.Birthday);
 
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+
     const favoriteMovieList = props.movieData.filter((movie) => {
         if (props.profileData.FavoriteMovies.includes(movie._id))
             return movie;
@@ -26,10 +29,9 @@ export function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        const oldusername = username;
         const body = { Username: username, Password: password, Email: email, Birthday: birthday };
-        const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-        axios.put(`https://jakesmoviedb.herokuapp.com/users/${oldusername}`, body, headers)
+        const headers = { Authorization: `Bearer ${token}` };
+        axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, headers)
             .then(response => {
                 const data = response.data;
                 console.log(data);
@@ -42,6 +44,22 @@ export function ProfileView(props) {
                 console.log('error updating the user');
             });
     };
+
+    const deleteUser = (e) => {
+        e.preventDefault();
+        axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}`, {}, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(() => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                alert('Your account has been deleted.');
+                window.open(`/`, '_self');
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
 
     return (
         <>
@@ -67,8 +85,9 @@ export function ProfileView(props) {
                         <Form.Control type="date" defaultValue={dateConvert(props.profileData.Birthday)} onChange={e => setBirthday(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="profile-btns">
-                        <Button variant="primary" id="user-submit" type="submit" onClick={handleUpdate}>Update</Button>
                         <Button variant="secondary" onClick={() => { props.onBackClick(null); }}>Back</Button>
+                        <Button variant="dark" id="user-update-btn" type="submit" onClick={handleUpdate}>Update Account Info</Button>
+                        <Button variant="danger" onClick={deleteUser}>Delete Account</Button>
                     </Form.Group>
                 </Form>
                 </Col>

@@ -44,10 +44,10 @@ export function MovieCard(props) {
                 <Card.Title className="movie-card-title">{props.movieData.Title}</Card.Title>
                 <div className="card-btns">
                     <Link to={`/movies/${props.movieData._id}`}>
-                        <Button id="view-movie-btn">View Details</Button>
+                        <Button variant="dark" id="view-movie-btn">View Details</Button>
                     </Link>
-                    <Button id="add-favorite-btn" onClick={addFavorite}><BookmarkPlus></BookmarkPlus></Button>
-                    <Button id="remove-favorite-btn" onClick={removeFavorite}><TrashFill></TrashFill></Button>
+                    <Button variant="dark" id="add-favorite-btn" onClick={addFavorite}><BookmarkPlus></BookmarkPlus></Button>
+                    <Button variant="dark" id="remove-favorite-btn" onClick={removeFavorite}><TrashFill></TrashFill></Button>
                 </div>
             </Card.Body>
         </Card>
