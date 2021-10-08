@@ -13,8 +13,28 @@
     margin-top: 15px;
 }
 
+.card-btns {
+    display: flex;
+    flex-direction: row; 
+    column-gap: 5px;
+    width: 100%;
+    justify-content: center;
+}
+
 #view-movie-btn {
     background-color: black;
     border-color: darkgoldenrod;
-    width: 100%;
+    flex: 0 0 60%;
+}
+
+#add-favorite-btn {
+    background-color: black;
+    border-color: darkgoldenrod;
+    flex: 0 0 20%;
+}
+
+#remove-favorite-btn {
+    background-color: black;
+    border-color: darkgoldenrod;
+    flex: 0 0 20%;
 }

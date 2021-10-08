@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { MovieCard } from "../movie-card/movie-card";
+import { Row, Col } from "react-bootstrap";
 import "./profile-view.scss";
 
 export function FavoriteMovies(props) {
@@ -9,20 +9,22 @@ export function FavoriteMovies(props) {
             <h4>No Favorite Movies</h4>
         )
     return (
-        <div>
-            <h3>Favorite Movies</h3>
-            {props.favoriteMovieList.map((movie) => {
-                return (
-                    <div key={movie._id}>
-                        <img src={movie.ImagePath} />
-                        <Link to={`/movies/${movie._id}`}>
-                            <h4>{movie.Title}</h4>
-                        </Link>
-                    </div>
-
-                )
-            }
-            )}
-        </div>
+        <>
+            <Row>
+                <Col>
+                    <h3>Favorite Movies</h3>
+                </Col>
+            </Row>
+            <Row>
+                {props.favoriteMovieList.map((movie) => {
+                    return (
+                        <Col lg={6} key={movie._id}>
+                            <MovieCard movieData={movie} />
+                        </Col>
+                    )
+                }
+                )}
+            </Row>
+        </>
     );
 }
