@@ -19,7 +19,7 @@ export function FavoriteMovies(props) {
                 {props.favoriteMovieList.map((movie) => {
                     return (
                         <Col lg={6} key={movie._id}>
-                            <MovieCard movieData={movie} />
+                            <MovieCard movieData={movie} favoriteMovieList={props.favoriteMovieList} />
                         </Col>
                     )
                 }

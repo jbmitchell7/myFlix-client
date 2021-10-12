@@ -29,11 +29,11 @@ export function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        const config = { 
+        const config = {
             headers: { Authorization: `Bearer ${token}` },
         };
         const body = { Username: username, Password: password, Email: email, Birthday: birthday }
-        
+
         axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, config)
             .then(response => {
                 const data = response.data;

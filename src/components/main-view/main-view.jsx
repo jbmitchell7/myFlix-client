@@ -88,7 +88,7 @@ export class MainView extends React.Component {
                         if (movies.length === 0) return <div />
                         return movies.map(m => (
                             <Col lg={4} md={6} className="movie-columns" key={m._id}>
-                                <MovieCard movieData={m} user={user} />
+                                <MovieCard movieData={m} user={user} profileData={JSON.parse(localStorage.getItem('userData'))} />
                             </Col>
 
                         ))

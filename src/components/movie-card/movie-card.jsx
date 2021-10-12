@@ -10,13 +10,14 @@ export function MovieCard(props) {
 
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const config = {headers: {Authorization: `Bearer ${token}` }};
+    const config = { headers: { Authorization: `Bearer ${token}` } };
 
     const addFavorite = (e) => {
         e.preventDefault();
-        axios.post(`https://jakesmoviedb.herokuapp.com/users/${user}/movies/${props.movieData._id}`,{}, config)
-            .then(response => {
-                //change the api to respond with movie object instead of string
+        axios.post(`https://jakesmoviedb.herokuapp.com/users/${user}/movies/${props.movieData._id}`, {}, config)
+            .then(res => {
+                console.log(res.data);
+                //props.profileData.FavoriteMovies.push(res.data);
                 alert("Added to Favorites");
             })
             .catch(e => {
@@ -28,8 +29,8 @@ export function MovieCard(props) {
     const removeFavorite = (e) => {
         e.preventDefault();
         axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}/movies/${props.movieData._id}`, config)
-            .then(response => {
-                //change the api to respond with movie object
+            .then(res => {
+                //props.profileData.FavoriteMovies.filter((item) => item !== res.data);
                 alert("Removed from Favorites");
             })
             .catch(e => {
