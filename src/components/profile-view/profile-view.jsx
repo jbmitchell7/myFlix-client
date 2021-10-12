@@ -29,9 +29,12 @@ export function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        const body = { Username: username, Password: password, Email: email, Birthday: birthday };
-        const headers = { Authorization: `Bearer ${token}` };
-        axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, headers)
+        const config = { 
+            headers: { Authorization: `Bearer ${token}` },
+        };
+        const body = { Username: username, Password: password, Email: email, Birthday: birthday }
+        
+        axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, config)
             .then(response => {
                 const data = response.data;
                 console.log(data);
@@ -47,7 +50,7 @@ export function ProfileView(props) {
 
     const deleteUser = (e) => {
         e.preventDefault();
-        axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}`, {}, {
+        axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {
