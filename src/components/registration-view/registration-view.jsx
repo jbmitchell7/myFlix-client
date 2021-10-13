@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+
 import './registration-view.scss';
 
-export function RegistrationView() {
+export function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -52,6 +53,7 @@ export function RegistrationView() {
                 </Form.Group >
 
                 <Button variant="dark" id="register-submit" type="submit" onClick={handleRegister}>Register</Button>
+                <Button variant="secondary" onClick={() => { props.onBackClick(null); }}>Back to Login</Button>
             </Form>
         </div>
     );

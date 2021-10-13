@@ -90,11 +90,11 @@ class MainView extends React.Component {
                         return <MoviesList movies={movies} />
                     }} />
 
-                    <Route path="/register" render={() => {
+                    <Route path="/register" render={({ history }) => {
                         if (user) return <Redirect to="/" />
                         return (
                             <Col>
-                                <RegistrationView />
+                                <RegistrationView onBackClick={() => history.goBack()} />
                             </Col>
                         )
                     }} />
