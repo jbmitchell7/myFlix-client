@@ -3,12 +3,18 @@ import { Button, Card } from 'react-bootstrap';
 import { TrashFill, BookmarkPlus } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 import "./movie-card.scss";
 
+const mapStateToProps = state => {
+    const { userData } = state;
+    return { userData };
+};
 
-export function MovieCard(props) {
-
-    const user = localStorage.getItem('user');
+function MovieCard(props) {
+    const { userData } = props;
+    const user = userData.Username;
     const token = localStorage.getItem('token');
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -57,3 +63,5 @@ export function MovieCard(props) {
     )
 
 }
+
+export default connect(mapStateToProps)(MovieCard);

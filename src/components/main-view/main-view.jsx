@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUserData } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from "../navbar-view/navbar-view";
 import { LoginView } from "../login-view/login-view";
@@ -12,7 +12,7 @@ import { RegistrationView } from "../registration-view/registration-view";
 import { MovieView } from "../movie-view/movie-view";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
-import { ProfileView } from "../profile-view/profile-view";
+import ProfileView from "../profile-view/profile-view";
 import "./main-view.scss";
 
 class MainView extends React.Component {
@@ -28,7 +28,7 @@ class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
-                user: localStorage.getItem('user')
+                user: this.props.userData.Username
             });
             this.getMovies(accessToken);
         }
@@ -47,29 +47,29 @@ class MainView extends React.Component {
     }
 
     onLoggedIn(authData) {
-        console.log(authData);
         this.setState({
             user: authData.user.Username
         });
-        localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.Username);
-        localStorage.setItem('userData', JSON.stringify(authData.user));
+        this.props.setUserData(authData.user);
         this.getMovies(authData.token);
+
+        localStorage.setItem('token', authData.token);
+
+        console.log(authData);
+        console.log(this.props.userData);
     }
 
     onLoggedOut() {
-        console.log(`${localStorage.getItem('user')} is logging out`);
+        console.log(`${this.props.userData.Username} is logging out`);
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('userData');
         this.setState({
             user: null
         });
     }
 
     render() {
-        let { user } = this.state;
-        let { movies } = this.props;
+        const { user } = this.state;
+        const { movies } = this.props;
 
         return (
             <Router>
@@ -123,7 +123,7 @@ class MainView extends React.Component {
                     <Route path="/users/:username" render={({ history }) => {
                         if (!user) return <Redirect to="/" />
                         return <Col md={8}>
-                            <ProfileView movieData={movies} profileData={JSON.parse(localStorage.getItem('userData'))} onBackClick={() => history.goBack()} />
+                            <ProfileView onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
                 </Row>
@@ -133,7 +133,10 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return {
+        movies: state.movies,
+        userData: state.userData
+    }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUserData })(MainView);

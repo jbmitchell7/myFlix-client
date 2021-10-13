@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import { Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { connect } from 'react-redux';
+
 import { FavoriteMovies } from "./favoritemovies-view";
 import "./profile-view.scss";
 
-export function ProfileView(props) {
+const mapStateToProps = state => {
+    const { userData, movies } = state;
+    return { userData, movies };
+};
 
-    const [username, setUsername] = useState(props.profileData.Username);
-    const [password, setPassword] = useState(props.profileData.Password);
-    const [email, setEmail] = useState(props.profileData.Email);
-    const [birthday, setBirthday] = useState(props.profileData.Birthday);
+function ProfileView(props) {
+    const { userData, movies } = props;
+    const [username, setUsername] = useState(userData.Username);
+    const [password, setPassword] = useState(userData.Password);
+    const [email, setEmail] = useState(userData.Email);
+    const [birthday, setBirthday] = useState(userData.Birthday);
 
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+    const user = userData.Username;
 
-    const favoriteMovieList = props.movieData.filter((movie) => {
-        if (props.profileData.FavoriteMovies.includes(movie._id))
+    const favoriteMovieList = movies.filter((movie) => {
+        if (userData.FavoriteMovies.includes(movie._id))
             return movie;
     })
 
@@ -54,7 +61,6 @@ export function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {
-                localStorage.removeItem('user');
                 localStorage.removeItem('token');
                 alert('Your account has been deleted.');
                 window.open(`/`, '_self');
@@ -73,19 +79,19 @@ export function ProfileView(props) {
                 <Col><Form className="user-form">
                     <Form.Group controlId="formEmail">
                         <Form.Label className="user-text">Email Address:</Form.Label>
-                        <Form.Control type="text" placeholder="name@example.com" defaultValue={props.profileData.Email} onChange={e => setEmail(e.target.value)} />
+                        <Form.Control type="text" placeholder="name@example.com" defaultValue={userData.Email} onChange={e => setEmail(e.target.value)} />
                     </Form.Group>
                     <Form.Group controlId="formUsername">
                         <Form.Label className="user-text">Username:</Form.Label>
-                        <Form.Control type="text" placeholder="Must be at least 5 alphanumeric characters" defaultValue={props.profileData.Username} onChange={e => setUsername(e.target.value)} />
+                        <Form.Control type="text" placeholder="Must be at least 5 alphanumeric characters" defaultValue={userData.Username} onChange={e => setUsername(e.target.value)} />
                     </Form.Group>
                     <Form.Group controlId="formPassword">
                         <Form.Label className="user-text">Password:</Form.Label>
-                        <Form.Control type="password" placeholder="Must be at least 8 characters" defaultValue={props.profileData.Password} onChange={e => setPassword(e.target.value)} />
+                        <Form.Control type="password" placeholder="Must be at least 8 characters" defaultValue={userData.Password} onChange={e => setPassword(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label className="user-birthday">Birthday:</Form.Label>
-                        <Form.Control type="date" defaultValue={dateConvert(props.profileData.Birthday)} onChange={e => setBirthday(e.target.value)} />
+                        <Form.Control type="date" defaultValue={dateConvert(userData.Birthday)} onChange={e => setBirthday(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="profile-btns">
                         <Button variant="secondary" onClick={() => { props.onBackClick(null); }}>Back</Button>
@@ -103,3 +109,5 @@ export function ProfileView(props) {
         </ >
     );
 }
+
+export default connect(mapStateToProps)(ProfileView);

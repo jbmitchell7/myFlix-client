@@ -19,7 +19,7 @@ export function LoginView(props) {
                 console.log(`${username} has logged in.`);
             })
             .catch(e => {
-                console.log('user does not exist')
+                console.log('incorrect credentials')
             });
 
     };
