@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import "./profile-view.scss";
 
 export function FavoriteMovies(props) {
-    if (props.favoriteMovieList.length === 0)
+    if (props.getFavorites().length === 0)
         return (
             <h4>No Favorite Movies</h4>
         )
@@ -16,10 +16,10 @@ export function FavoriteMovies(props) {
                 </Col>
             </Row>
             <Row>
-                {props.favoriteMovieList.map((movie) => {
+                {props.getFavorites().map((movie) => {
                     return (
                         <Col lg={6} key={movie._id}>
-                            <MovieCard movieData={movie} favoriteMovieList={props.favoriteMovieList} />
+                            <MovieCard movieData={movie} getFavorites={props.getFavorites} />
                         </Col>
                     )
                 }

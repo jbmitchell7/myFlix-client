@@ -8,40 +8,45 @@ import { connect } from 'react-redux';
 import "./movie-card.scss";
 
 const mapStateToProps = state => {
-    const { userData } = state;
-    return { userData };
+    const { userData, addFavorite, removeFavorite } = state;
+    return { userData, addFavorite, removeFavorite };
 };
 
 function MovieCard(props) {
-    const { userData } = props;
+    const { userData, addFavorite, removeFavorite } = props;
     const user = userData.Username;
     const token = localStorage.getItem('token');
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
-    const addFavorite = (e) => {
+    const addToFavorites = (e) => {
         e.preventDefault();
         axios.post(`https://jakesmoviedb.herokuapp.com/users/${user}/movies/${props.movieData._id}`, {}, config)
             .then(res => {
                 console.log(res.data);
-                //props.profileData.FavoriteMovies.push(res.data);
+                //addFavorite(res.data);
+                //props.getFavorites();
                 alert("Added to Favorites");
             })
             .catch(e => {
                 alert("Error Adding to Favorites");
                 console.log('error adding favorite');
+                console.log(e);
             });
     };
 
-    const removeFavorite = (e) => {
+    const removeFromFavorites = (e) => {
         e.preventDefault();
         axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}/movies/${props.movieData._id}`, config)
             .then(res => {
-                //props.profileData.FavoriteMovies.filter((item) => item !== res.data);
+                console.log(res.data); s
+                //removeFavorite(res.data);
+                //props.getFavorites();
                 alert("Removed from Favorites");
             })
             .catch(e => {
                 alert("Error Removing from Favorites");
                 console.log('error removing favorite');
+                console.log(e);
             });
     };
 
@@ -55,8 +60,8 @@ function MovieCard(props) {
                     <Link to={`/movies/${props.movieData._id}`}>
                         <Button variant="dark" id="view-movie-btn">View Details</Button>
                     </Link>
-                    <Button variant="dark" id="add-favorite-btn" onClick={addFavorite}><BookmarkPlus></BookmarkPlus></Button>
-                    <Button variant="dark" id="remove-favorite-btn" onClick={removeFavorite}><TrashFill></TrashFill></Button>
+                    <Button variant="dark" id="add-favorite-btn" onClick={addToFavorites}><BookmarkPlus></BookmarkPlus></Button>
+                    <Button variant="dark" id="remove-favorite-btn" onClick={removeFromFavorites}><TrashFill></TrashFill></Button>
                 </div>
             </Card.Body>
         </Card>

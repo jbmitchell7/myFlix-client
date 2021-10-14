@@ -21,10 +21,13 @@ function ProfileView(props) {
     const token = localStorage.getItem('token');
     const user = userData.Username;
 
-    const favoriteMovieList = movies.filter((movie) => {
-        if (userData.FavoriteMovies.includes(movie._id))
-            return movie;
-    })
+    const getFavorites = () => {
+        const favoriteList = movies.filter((movie) => {
+            if (userData.FavoriteMovies.includes(movie._id))
+                return movie;
+        })
+        return favoriteList
+    }
 
     const dateConvert = (dateInput) => {
         let year = dateInput.substr(0, 4);
@@ -103,7 +106,7 @@ function ProfileView(props) {
             </Row>
 
             <div>
-                <FavoriteMovies favoriteMovieList={favoriteMovieList} />
+                <FavoriteMovies getFavorites={getFavorites} />
             </div>
 
         </ >
