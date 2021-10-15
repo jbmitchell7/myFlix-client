@@ -1,10 +1,19 @@
 import React from "react";
 import MovieCard from "../movie-card/movie-card";
 import { Row, Col } from "react-bootstrap";
+import { connect } from 'react-redux';
 import "./profile-view.scss";
 
-export function FavoriteMovies(props) {
-    if (props.getFavorites().length === 0)
+const mapStateToProps = state => {
+    const { userData, movies } = state;
+    return { userData, movies };
+};
+
+function FavoriteMovies(props) {
+
+    const { userData, movies } = props;
+
+    if (userData.FavoriteMovies.length === 0)
         return (
             <h4>No Favorite Movies</h4>
         )
@@ -16,15 +25,20 @@ export function FavoriteMovies(props) {
                 </Col>
             </Row>
             <Row>
-                {props.getFavorites().map((movie) => {
-                    return (
-                        <Col lg={6} key={movie._id}>
-                            <MovieCard movieData={movie} getFavorites={props.getFavorites} />
-                        </Col>
-                    )
+                {movies.map((movie) => {
+                    if (movie._id === userData.FavoriteMovies.find((m) =>
+                        m === movie._id)) {
+                        return (
+                            <Col lg={6} key={movie._id}>
+                                <MovieCard movieData={movie} />
+                            </Col>
+                        )
+                    }
                 }
                 )}
             </Row>
         </>
     );
 }
+
+export default connect(mapStateToProps)(FavoriteMovies);

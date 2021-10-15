@@ -3,16 +3,16 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { connect } from 'react-redux';
 
-import { FavoriteMovies } from "./favoritemovies-view";
+import FavoriteMovies from "./favoritemovies-view";
 import "./profile-view.scss";
 
 const mapStateToProps = state => {
-    const { userData, movies } = state;
-    return { userData, movies };
+    const { userData } = state;
+    return { userData };
 };
 
 function ProfileView(props) {
-    const { userData, movies } = props;
+    const { userData } = props;
     const [username, setUsername] = useState(userData.Username);
     const [password, setPassword] = useState(userData.Password);
     const [email, setEmail] = useState(userData.Email);
@@ -20,14 +20,6 @@ function ProfileView(props) {
 
     const token = localStorage.getItem('token');
     const user = userData.Username;
-
-    const getFavorites = () => {
-        const favoriteList = movies.filter((movie) => {
-            if (userData.FavoriteMovies.includes(movie._id))
-                return movie;
-        })
-        return favoriteList
-    }
 
     const dateConvert = (dateInput) => {
         let year = dateInput.substr(0, 4);
@@ -106,7 +98,7 @@ function ProfileView(props) {
             </Row>
 
             <div>
-                <FavoriteMovies getFavorites={getFavorites} />
+                <FavoriteMovies />
             </div>
 
         </ >
