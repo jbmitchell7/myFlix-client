@@ -1,21 +1,17 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { TrashFill, BookmarkPlus } from 'react-bootstrap-icons';
+import { TrashFill, HeartFill } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { setUserData } from "../../actions/actions";
 import { connect } from 'react-redux';
 
+import { setUserData } from "../../actions/actions";
 import "./movie-card.scss";
 
 const token = localStorage.getItem('token');
 const config = { headers: { Authorization: `Bearer ${token}` } };
 
 class MovieCard extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     getUser() {
         axios.get(`https://jakesmoviedb.herokuapp.com/users/${this.props.userData.Username}`, config)
@@ -29,7 +25,7 @@ class MovieCard extends React.Component {
             })
     };
 
-    addFavorite(e) {
+    addFavorite = (e) => {
         e.preventDefault();
         axios.post(`https://jakesmoviedb.herokuapp.com/users/${this.props.userData.Username}/movies/${this.props.movieData._id}`, {}, config)
             .then(res => {
@@ -42,10 +38,10 @@ class MovieCard extends React.Component {
                 console.log('error adding favorite');
                 console.log(e);
             });
-    }
+    };
 
-    removeFavorite(e) {
-        e.preventDefault();
+    removeFavorite = (e) => {
+        e.preventDefault(e);
         axios.delete(`https://jakesmoviedb.herokuapp.com/users/${this.props.userData.Username}/movies/${this.props.movieData._id}`, config)
             .then(res => {
                 console.log(res.data);
@@ -70,8 +66,12 @@ class MovieCard extends React.Component {
                         <Link to={`/movies/${movieData._id}`}>
                             <Button variant="dark" id="view-movie-btn">View Details</Button>
                         </Link>
-                        <Button variant="dark" id="add-favorite-btn" onClick={this.addFavorite}><BookmarkPlus></BookmarkPlus></Button>
-                        <Button variant="dark" id="remove-favorite-btn" onClick={this.removeFavorite}><TrashFill></TrashFill></Button>
+                        <Button variant="dark" id="add-favorite-btn" onClick={this.addFavorite}>
+                            <HeartFill></HeartFill>
+                        </Button>
+                        <Button variant="dark" id="remove-favorite-btn" onClick={this.removeFavorite}>
+                            <TrashFill></TrashFill>
+                        </Button>
                     </div>
                 </Card.Body>
             </Card>
