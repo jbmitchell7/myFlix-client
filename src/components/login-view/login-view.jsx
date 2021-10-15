@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import './login-view.scss';
 
@@ -39,6 +40,10 @@ export function LoginView(props) {
                 <Button variant="dark" id="login-btn" type="submit" onClick={handleSubmit}>
                     Submit
                 </Button>
+                <h3 className="register-here">No Login?</h3>
+                <Link to={"/register"}>
+                    <Button variant="secondary">Register Here</Button>
+                </Link>
             </Form>
         </div>
     );

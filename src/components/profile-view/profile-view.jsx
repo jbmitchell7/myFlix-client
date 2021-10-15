@@ -82,7 +82,7 @@ function ProfileView(props) {
                     </Form.Group>
                     <Form.Group controlId="formPassword">
                         <Form.Label className="user-text">Password:</Form.Label>
-                        <Form.Control type="password" placeholder="Must be at least 8 characters" onChange={e => setPassword(e.target.value)} />
+                        <Form.Control type="password" placeholder="Must re-enter or create new password to update info" onChange={e => setPassword(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label className="user-birthday">Birthday:</Form.Label>
