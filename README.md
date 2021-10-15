@@ -5,7 +5,7 @@ It shows movie data including director, genre, and a poster; as well as more det
 
 Users must register and are then able to add and remove movies from their favorites as well as update any other profile data on the profile screen.
 
-![image of login screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/movies.png)
-![image of login screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/login.png)
-![image of login screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/register.png)
-![image of login screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/profile.png)
+![image of movies screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/movies.PNG)
+![image of login screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/login.PNG)
+![image of register screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/register.PNG)
+![image of profile screen](https://github.com/jbmitchell7/myFlix-client/blob/main/src/img/profile.png)
