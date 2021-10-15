@@ -18,13 +18,14 @@ export function RegistrationView(props) {
             Email: email,
             Birthday: birthday
         })
-            .then(response => {
-                const data = response.data;
-                console.log(data);
+            .then(res => {
+                console.log(res.data);
+                console.log(`user successfully updated`)
                 window.open('/', '_self');
             })
             .catch(e => {
                 console.log('error registering the user')
+                console.log(e);
             });
     };
 

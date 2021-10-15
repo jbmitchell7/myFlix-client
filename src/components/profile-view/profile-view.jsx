@@ -37,16 +37,14 @@ function ProfileView(props) {
         const body = { Username: username, Password: password, Email: email, Birthday: birthday }
 
         axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, config)
-            .then(response => {
-                const data = response.data;
-                console.log(data);
-                console.log(username);
-                console.log(email);
+            .then(res => {
                 alert("User successfully updated");
+                console.log(res.data);
             })
             .catch(e => {
                 alert("User failed to update");
                 console.log('error updating the user');
+                console.log(e);
             });
     };
 
@@ -56,11 +54,13 @@ function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {
-                localStorage.removeItem('token');
                 alert('Your account has been deleted.');
+                localStorage.removeItem('token');
                 window.open(`/`, '_self');
             })
             .catch((e) => {
+                alert('Could not delete user.');
+                console.log(`error delete user`);
                 console.log(e);
             });
     }
@@ -98,7 +98,7 @@ function ProfileView(props) {
             </Row>
 
             <div>
-                <FavoriteMovies />
+                <FavoriteMovies getUser={props.getUser} />
             </div>
 
         </ >

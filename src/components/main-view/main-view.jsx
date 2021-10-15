@@ -42,9 +42,23 @@ class MainView extends React.Component {
                 this.props.setMovies(res.data);
             })
             .catch(function (error) {
+                console.log(`error getting movies`);
                 console.log(error);
             })
     }
+
+    getUser(token) {
+        axios.get(`https://jakesmoviedb.herokuapp.com/users/${this.props.userData.Username}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                this.props.setUserData(res.data);
+            })
+            .catch(function (error) {
+                console.log(`error getting user`);
+                console.log(error);
+            })
+    };
 
     onLoggedIn(authData) {
         this.setState({
@@ -54,9 +68,6 @@ class MainView extends React.Component {
         this.getMovies(authData.token);
 
         localStorage.setItem('token', authData.token);
-
-        console.log(authData);
-        console.log(this.props.userData);
     }
 
     onLoggedOut() {
@@ -87,7 +98,7 @@ class MainView extends React.Component {
                                 </Col>
                             )
                         if (movies.length === 0) return <div />;
-                        return <MoviesList movies={movies} />
+                        return <MoviesList movies={movies} getUser={(token) => this.getUser(token)} />
                     }} />
 
                     <Route path="/register" render={({ history }) => {
@@ -123,7 +134,7 @@ class MainView extends React.Component {
                     <Route path="/users/:username" render={({ history }) => {
                         if (!user) return <Redirect to="/" />
                         return <Col md={8}>
-                            <ProfileView onBackClick={() => history.goBack()} />
+                            <ProfileView onBackClick={() => history.goBack()} getUser={(token) => this.getUser(token)} />
                         </Col>
                     }} />
                 </Row>

@@ -30,7 +30,7 @@ function FavoriteMovies(props) {
                         m === movie._id)) {
                         return (
                             <Col lg={6} key={movie._id}>
-                                <MovieCard movieData={movie} />
+                                <MovieCard movieData={movie} getUser={props.getUser} />
                             </Col>
                         )
                     }
