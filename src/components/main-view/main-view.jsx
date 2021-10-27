@@ -8,10 +8,10 @@ import { setMovies, setUserData } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from "../navbar-view/navbar-view";
 import { LoginView } from "../login-view/login-view";
-import { RegistrationView } from "../registration-view/registration-view";
-import { MovieView } from "../movie-view/movie-view";
-import { DirectorView } from "../director-view/director-view";
-import { GenreView } from "../genre-view/genre-view";
+import { RegistrationView } from "../../views/registration-view/registration-view";
+import { MovieView } from "../../views/movie-view/movie-view";
+import { DirectorView } from "../../views/director-view/director-view";
+import { GenreView } from "../../views/genre-view/genre-view";
 import ProfileView from "../profile-view/profile-view";
 import "./main-view.scss";
 
