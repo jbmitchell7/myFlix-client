@@ -6,15 +6,20 @@ import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-
 import MovieCard from '../movie-card/movie-card';
 import './movies-list.scss';
 
+const mapStateToProps = state => {
+    const { visibilityFilter } = state;
+    return { visibilityFilter };
+};
+
 function MoviesList(props) {
     const { movies, visibilityFilter } = props;
     let filteredMovies = movies;
 
-    if (!movies) return <div className="main-view" />;
-
     if (visibilityFilter !== '') {
         filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
     }
+
+    if (!movies) return <div className="main-view" />;
 
     return <>
         <Col lg={9} md={8} className="search-input">
@@ -28,10 +33,5 @@ function MoviesList(props) {
         ))}
     </>;
 }
-
-const mapStateToProps = state => {
-    const { visibilityFilter } = state;
-    return { visibilityFilter };
-};
 
 export default connect(mapStateToProps)(MoviesList);

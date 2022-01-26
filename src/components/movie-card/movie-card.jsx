@@ -11,6 +11,11 @@ import "./movie-card.scss";
 const token = localStorage.getItem('token');
 const config = { headers: { Authorization: `Bearer ${token}` } };
 
+const mapStateToProps = state => {
+    const { userData } = state;
+    return { userData };
+};
+
 function MovieCard(props) {
     const { userData } = props;
 
@@ -66,9 +71,6 @@ function MovieCard(props) {
 
 }
 
-const mapStateToProps = state => {
-    const { userData } = state;
-    return { userData };
-};
+
 
 export default connect(mapStateToProps, { setUserData })(MovieCard);

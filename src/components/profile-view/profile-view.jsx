@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import FavoriteMovies from "./favoritemovies-view";
 import "./profile-view.scss";
 
+const mapStateToProps = state => {
+    const { userData } = state;
+    return { userData };
+};
+
 function ProfileView(props) {
     const { userData } = props;
     const [username, setUsername] = useState(userData.Username);
@@ -99,10 +104,5 @@ function ProfileView(props) {
         </ >
     );
 }
-
-const mapStateToProps = state => {
-    const { userData } = state;
-    return { userData };
-};
 
 export default connect(mapStateToProps)(ProfileView);

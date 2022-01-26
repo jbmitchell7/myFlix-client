@@ -4,6 +4,11 @@ import { Row, Col } from "react-bootstrap";
 import { connect } from 'react-redux';
 import "./profile-view.scss";
 
+const mapStateToProps = state => {
+    const { userData, movies } = state;
+    return { userData, movies };
+};
+
 function FavoriteMovies(props) {
 
     const { userData, movies } = props;
@@ -35,10 +40,5 @@ function FavoriteMovies(props) {
         </>
     );
 }
-
-const mapStateToProps = state => {
-    const { userData, movies } = state;
-    return { userData, movies };
-};
 
 export default connect(mapStateToProps)(FavoriteMovies);
