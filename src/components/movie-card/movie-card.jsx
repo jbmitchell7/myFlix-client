@@ -56,7 +56,7 @@ function MovieCard(props) {
                 <Card.Img variant="top" src={props.movieData.ImagePath} />
                 <Card.Title className="movie-card-title">{props.movieData.Title}</Card.Title>
                 <div className="card-btns">
-                    <Link to={`/movies/${props.movieData._id}`}>
+                    <Link to={`/myFlix-client/movies/${props.movieData._id}`}>
                         <Button variant="dark" id="view-movie-btn">View Details</Button>
                     </Link>
                     <Button variant="dark" id="add-favorite-btn" onClick={addFavorite}>

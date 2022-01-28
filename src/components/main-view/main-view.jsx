@@ -87,7 +87,7 @@ class MainView extends React.Component {
                 <NavbarView onLoggedOut={() => this.onLoggedOut()} user={user} />
 
                 <Row className="router-view justify-content-md-center">
-                    <Route exact path="/" render={() => {
+                    <Route exact path="/myFlix-client" render={() => {
                         if (!user)
                             return (
                                 <Col>
@@ -101,7 +101,7 @@ class MainView extends React.Component {
                         return <MoviesList movies={movies} getUser={(token) => this.getUser(token)} />
                     }} />
 
-                    <Route path="/register" render={({ history }) => {
+                    <Route path="/myFlix-client/register" render={({ history }) => {
                         if (user) return <Redirect to="/" />
                         return (
                             <Col>
@@ -110,28 +110,28 @@ class MainView extends React.Component {
                         )
                     }} />
 
-                    <Route path="/movies/:movieId" render={({ match, history }) => {
+                    <Route path="/myFlix-client/movies/:movieId" render={({ match, history }) => {
                         return <Col md={8}>
                             <MovieView movieData={movies.find(movie => movie._id === match.params.movieId)}
                                 onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
 
-                    <Route path="/directors/:name" render={({ match, history }) => {
+                    <Route path="/myFlix-client/directors/:name" render={({ match, history }) => {
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
                             <DirectorView directorData={movies.find(movie => movie.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
 
-                    <Route path="/genres/:name" render={({ match, history }) => {
+                    <Route path="/myFlix-client/genres/:name" render={({ match, history }) => {
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
                             <GenreView genreData={movies.find(movie => movie.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
 
-                    <Route path="/users/:username" render={({ history }) => {
+                    <Route path="/myFlix-client/users/:username" render={({ history }) => {
                         if (!user) return <Redirect to="/" />
                         return <Col md={8}>
                             <ProfileView onBackClick={() => history.goBack()} getUser={(token) => this.getUser(token)} />

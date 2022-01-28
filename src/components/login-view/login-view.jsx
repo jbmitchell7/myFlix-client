@@ -35,13 +35,13 @@ export function LoginView(props) {
 
                 <Form.Group controlId="formPassword">
                     <Form.Label className="login-text">Password:</Form.Label>
-                    <Form.Control required type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
+                    <Form.Control required type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
                 <Button variant="dark" id="login-btn" type="submit" onClick={handleSubmit}>
                     Submit
                 </Button>
                 <h3 className="register-here">No Login?</h3>
-                <Link to={"/register"}>
+                <Link to={"/myFlix-client/register"}>
                     <Button variant="secondary">Register Here</Button>
                 </Link>
             </Form>

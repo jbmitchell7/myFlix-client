@@ -10,10 +10,10 @@ export function NavbarView(props) {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto">
-                    <Link to={"/"} className="nav-link">Movies</Link>
-                    <Link to={"/register"} className="nav-link">Register</Link>
-                    <Link to={`/users/${props.user}`} className="nav-link">View Profile</Link>
-                    <Link to={"/"} onClick={() => { props.onLoggedOut(); }} className="nav-link">Logout</Link>
+                    <Link to={"/myFlix-client"} className="nav-link">Movies</Link>
+                    <Link to={"/myFlix-client/register"} className="nav-link">Register</Link>
+                    <Link to={`/myFlix-client/users/${props.user}`} className="nav-link">View Profile</Link>
+                    <Link to={"/myFlix-client"} onClick={() => { props.onLoggedOut(); }} className="nav-link">Logout</Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
