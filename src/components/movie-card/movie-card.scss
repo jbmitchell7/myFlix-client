@@ -1,6 +1,25 @@
 .movie-card {
-    width: 100%;
+    width: 25vw;
+    height: auto;
     margin-top: 15px;
+}
+
+@media (min-width : 1600px) {
+    .movie-card {
+        width: 15vw;
+    }
+}
+
+@media (max-width : 1000px) {
+    .movie-card {
+        width: 40vw;
+    }
+}
+
+@media (max-width : 800px) {
+    .movie-card {
+        width: 60vw;
+    }
 }
 
 .movie-card-body {

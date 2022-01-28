@@ -18,7 +18,6 @@ function ProfileView(props) {
     const [email, setEmail] = useState(userData.Email);
     const [birthday, setBirthday] = useState(userData.Birthday);
 
-    const token = localStorage.getItem('token');
     const user = userData.Username;
 
     const dateConvert = (dateInput) => {
@@ -31,6 +30,7 @@ function ProfileView(props) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
         const config = {
             headers: { Authorization: `Bearer ${token}` },
         };
@@ -50,6 +50,7 @@ function ProfileView(props) {
 
     const deleteUser = (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
         axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
@@ -89,9 +90,9 @@ function ProfileView(props) {
                         <Form.Control type="date" defaultValue={dateConvert(userData.Birthday)} onChange={e => setBirthday(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="profile-btns">
-                        <Button variant="secondary" onClick={() => { props.onBackClick(null); }}>Back</Button>
-                        <Button variant="dark" id="user-update-btn" type="submit" onClick={handleUpdate}>Update Account Info</Button>
-                        <Button variant="danger" onClick={deleteUser}>Delete Account</Button>
+                        <Button className="profile-btn" variant="secondary" onClick={() => { props.onBackClick(null); }}>Back</Button>
+                        <Button className="profile-btn" variant="dark" id="user-update-btn" type="submit" onClick={handleUpdate}>Update Account Info</Button>
+                        <Button className="profile-btn" variant="danger" onClick={deleteUser}>Delete Account</Button>
                     </Form.Group>
                 </Form>
                 </Col>

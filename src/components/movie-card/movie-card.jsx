@@ -8,9 +8,6 @@ import { connect } from 'react-redux';
 import { setUserData } from "../../actions/actions";
 import "./movie-card.scss";
 
-const token = localStorage.getItem('token');
-const config = { headers: { Authorization: `Bearer ${token}` } };
-
 const mapStateToProps = state => {
     const { userData } = state;
     return { userData };
@@ -21,6 +18,8 @@ function MovieCard(props) {
 
     const addFavorite = (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
+        const config = { headers: { Authorization: `Bearer ${token}` } };
         axios.post(`https://jakesmoviedb.herokuapp.com/users/${userData.Username}/movies/${props.movieData._id}`, {}, config)
             .then(res => {
                 alert("Added to Favorites");
@@ -36,6 +35,8 @@ function MovieCard(props) {
 
     const removeFavorite = (e) => {
         e.preventDefault(e);
+        const token = localStorage.getItem('token');
+        const config = { headers: { Authorization: `Bearer ${token}` } };
         axios.delete(`https://jakesmoviedb.herokuapp.com/users/${userData.Username}/movies/${props.movieData._id}`, config)
             .then(res => {
                 alert("Removed from Favorites");
