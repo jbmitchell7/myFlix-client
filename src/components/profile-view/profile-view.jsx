@@ -36,7 +36,7 @@ function ProfileView(props) {
         };
         const body = { Username: username, Password: password, Email: email, Birthday: birthday }
 
-        axios.put(`https://jakesmoviedb.herokuapp.com/users/${user}`, body, config)
+        axios.put(`https://myflixdb.onrender.com/users/${user}`, body, config)
             .then(res => {
                 alert("User successfully updated");
                 console.log(res.data);
@@ -51,7 +51,7 @@ function ProfileView(props) {
     const deleteUser = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        axios.delete(`https://jakesmoviedb.herokuapp.com/users/${user}`, {
+        axios.delete(`https://myflixdb.onrender.com/users/${user}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {

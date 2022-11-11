@@ -20,7 +20,7 @@ function MovieCard(props) {
         e.preventDefault();
         const token = localStorage.getItem('token');
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        axios.post(`https://jakesmoviedb.herokuapp.com/users/${userData.Username}/movies/${props.movieData._id}`, {}, config)
+        axios.post(`https://myflixdb.onrender.com/users/${userData.Username}/movies/${props.movieData._id}`, {}, config)
             .then(res => {
                 alert("Added to Favorites");
                 props.getUser(token);
@@ -37,7 +37,7 @@ function MovieCard(props) {
         e.preventDefault(e);
         const token = localStorage.getItem('token');
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        axios.delete(`https://jakesmoviedb.herokuapp.com/users/${userData.Username}/movies/${props.movieData._id}`, config)
+        axios.delete(`https://myflixdb.onrender.com/users/${userData.Username}/movies/${props.movieData._id}`, config)
             .then(res => {
                 alert("Removed from Favorites");
                 props.getUser(token);

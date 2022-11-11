@@ -35,7 +35,7 @@ class MainView extends React.Component {
     }
 
     getMovies(token) {
-        axios.get('https://jakesmoviedb.herokuapp.com/movies', {
+        axios.get('https://myflixdb.onrender.com/movies', {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => {
@@ -48,7 +48,7 @@ class MainView extends React.Component {
     }
 
     getUser(token) {
-        axios.get(`https://jakesmoviedb.herokuapp.com/users/${this.props.userData.Username}`, {
+        axios.get(`https://myflixdb.onrender.com/users/${this.props.userData.Username}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => {

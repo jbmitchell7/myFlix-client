@@ -10,7 +10,7 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://jakesmoviedb.herokuapp.com/login', {
+        axios.post('https://myflixdb.onrender.com/login', {
             Username: username,
             Password: password,
         })
